@@ -23,7 +23,7 @@ There are several optional flags one can use
 * `-dir ./directoryToStoreKeystore`
   * Specifies the direcotry to store the keystore file in
   * default is `./wallets`
-* `-nemonic` 
+* `-mnemonic` 
   * One may use a mnemonic key phrase to generate a wallet off of
 * `-logging` `true` OR `false`
   * logs privateKey and publicKey into the terminal
