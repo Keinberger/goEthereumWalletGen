@@ -34,7 +34,7 @@ func main() {
 
 	// generating privateKey
 	var privateKey *ecdsa.PrivateKey
-	if *mnemonic != "" { // using mnemonic phrase
+	if len([]byte(*mnemonic)) < 1 { // using mnemonic phrase
 		wallet, err := hdwallet.NewFromMnemonic(strings.Trim(*mnemonic, "\""))
 		panicError(err)
 		account, err := wallet.Derive(hdwallet.DefaultBaseDerivationPath, false)
