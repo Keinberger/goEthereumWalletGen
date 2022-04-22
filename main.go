@@ -5,10 +5,12 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"strings"
 
 	"github.com/ethereum/go-ethereum/accounts/keystore"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
+	hdwallet "github.com/miguelmota/go-ethereum-hdwallet"
 )
 
 func panicError(err error) {
@@ -27,11 +29,25 @@ func main() {
 	pwd := flag.String("pwd", "", "Password to encrypt keystore file")
 	dir := flag.String("dir", "./wallets", "Directory to store keystore file")
 	logKeys := flag.Bool("logging", false, "Dis/enable logging keys")
+	mnemonic := flag.String("mnemonic", "", "Use a mnemonic phrase to generate the wallet")
 	flag.Parse()
 
 	// generating privateKey
-	privateKey, err := crypto.GenerateKey()
-	panicError(err)
+	var privateKey *ecdsa.PrivateKey
+	if len([]byte(*mnemonic)) < 1 { // using mnemonic phrase
+		wallet, err := hdwallet.NewFromMnemonic(strings.Trim(*mnemonic, "\""))
+		panicError(err)
+		account, err := wallet.Derive(hdwallet.DefaultBaseDerivationPath, false)
+		panicError(err)
+		privateKey, err = wallet.PrivateKey(account)
+		panicError(err)
+	} else {
+		var err error
+		privateKey, err = crypto.GenerateKey() // generating new random privateKey
+		panicError(err)
+	}
+
+	// generating privateKey
 	privateKeyBytes := crypto.FromECDSA(privateKey)
 	log(*logKeys, "PrivateKey\n"+hexutil.Encode(privateKeyBytes)[2:]+"\n")
 
@@ -46,7 +62,7 @@ func main() {
 
 	// generating keystore file from privateKey
 	ks := keystore.NewKeyStore(*dir, keystore.StandardScryptN, keystore.StandardScryptP)
-	account, err := ks.ImportECDSA(privateKey, *pwd)
+	account, err := ks.ImportECDSA(privateKey, *pwd) // will throw error if one uses same mnemonic phrase again
 	panicError(err)
 
 	fmt.Println("Ethereum Wallet (" + account.Address.Hex() + ") has been generated and stored in " + *dir)
