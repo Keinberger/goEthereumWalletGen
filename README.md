@@ -47,8 +47,8 @@ address and the directory where it has stored the keystore file into the termina
 
 If run correctly, the program output in the terminal should look like that
 
-`PrivateKey: a389e66e50e200d0bfc97a72b3b6c8802b171bb8e4a898c7023931f99237d1f4  
-PublicKey: 04d2cacfe6e0a19f4f25925356d296dd92a17bda27c6c42d58944af399930896b83c7a4a196d471e25d7a54670a3bad550396bd19ef43be88bfcd09f78383afdb2  
+`PrivateKey: a389e66e50e200d0bfc97a72b3b6c8802b171bb8e4a898c7023931f99237d1f4  \
+PublicKey: 04d2cacfe6e0a19f4f25925356d296dd92a17bda27c6c42d58944af399930896b83c7a4a196d471e25d7a54670a3bad550396bd19ef43be88bfcd09f78383afdb2  \
 Ethereum Wallet (0x4B7ABF923484e0A66c045019B1dCf92333FB4FAA) has been generated and stored in ./keystores`
 
 ## Important
