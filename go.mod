@@ -1,4 +1,4 @@
-module privateKeyGen
+module ethWalletGen
 
 go 1.18
 
