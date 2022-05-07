@@ -1,5 +1,5 @@
 build:
-	go build *.go
+	go build ./
 run:
-	go build *.go
-	./main
+	go build ./
+	./ethWalletGen

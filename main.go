@@ -49,7 +49,7 @@ func main() {
 
 	// generating privateKey
 	privateKeyBytes := crypto.FromECDSA(privateKey)
-	log(*logAllowed, "PrivateKey\n"+hexutil.Encode(privateKeyBytes)[2:]+"\n")
+	log(*logAllowed, "PrivateKey: "+hexutil.Encode(privateKeyBytes)[2:])
 
 	// getting publicKey from privateKey
 	publicKey := privateKey.Public()
@@ -58,12 +58,12 @@ func main() {
 		panicError(errors.New("fetched publicKey does not have type of ecdsa.PublicKey"))
 	}
 	publicKeyBytes := crypto.FromECDSAPub(publicKeyECDSA)
-	log(*logAllowed, "PublicKey\n"+hexutil.Encode(publicKeyBytes)[2:]+"\n")
+	log(*logAllowed, "PublicKey: "+hexutil.Encode(publicKeyBytes)[2:])
 
 	// generating keystore file from privateKey
 	ks := keystore.NewKeyStore(*dir, keystore.StandardScryptN, keystore.StandardScryptP)
 	account, err := ks.ImportECDSA(privateKey, *pwd) // will throw error if one uses same mnemonic phrase again
 	panicError(err)
 
-	fmt.Println("Ethereum Wallet (" + account.Address.Hex() + ") has been generated and stored in " + *dir)
+	log(*logAllowed, "Ethereum Wallet ("+account.Address.Hex()+") has been generated and stored in "+*dir)
 }
