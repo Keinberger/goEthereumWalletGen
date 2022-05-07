@@ -45,7 +45,7 @@ address and the directory where it has stored the keystore file into the termina
 
 ### Example
 
-If run correctly, the program output in the terminal should look like that
+If run correctly, the program output in the terminal should look as following
 
 ```
 PrivateKey: a389e66e50e200d0bfc97a72b3b6c8802b171bb8e4a898c7023931f99237d1f4
