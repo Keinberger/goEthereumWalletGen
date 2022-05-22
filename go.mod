@@ -1,4 +1,4 @@
-module ethWalletGen
+module github.com/keinberger/goEthereumWalletGen
 
 go 1.18
 
